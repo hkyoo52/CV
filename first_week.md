@@ -50,9 +50,7 @@ Output : var
 var=init
 grad=gradient(var)
 while(norm(grad)>eps):
-
   var=var-lr*grad
-  
   grad=gradient(var)
 </code></pre>  
 
@@ -72,12 +70,21 @@ SoftMax 코드
 
 ## <수학>
 -------------
+* 행렬
+
+![image](https://user-images.githubusercontent.com/63588046/149851781-065a0ca0-c514-4afb-b4e6-4f8d6412b95d.png)
+
+![image](https://user-images.githubusercontent.com/63588046/149852171-8e835976-649c-4663-8ad1-71bab87114c7.png)
+
+위 식을 사용하면 증명 가능 (기억하자!!)
+
 
 * 확률적 경사하강법 (SGD)
+
 데이터 중에서 한개 또는 일부 활용하여업데이트
 여러개의 지점에서 경사하강법을 사용하므로 local minimum에 빠지지 않을 확률이 높음
 
-L2 norm 표시 : ||y-XB||_2
+L2 norm 표시 : ||y-XB||~2~
 
 ^ : hat 으로 근사한다는 의미를 가짐
 
