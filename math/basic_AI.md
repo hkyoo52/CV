@@ -225,11 +225,21 @@
 
 <details><summary> RNN </summary>
   
+  * 시퀀스 데이터
+  소리, 문자열, 주가 등의 데이터 (과거 정보에 손실이나 순서가 바뀌면 X)
   
+  * 시퀀스 데이터는 이전 정보를 가지고 앞으로 발생할 데이터의 확률분포를 다루기 때문에 조건부확률 사용
+  * AR(Autoregressive Model) : 과거 모든 데이터 가지고 학습하는 것이 아니라 고정된 길이만큼의 시퀀스만 사용하는 경우
   
+  ![image](https://user-images.githubusercontent.com/63588046/150106206-9f279b73-78ad-4f50-9aba-6a0c6b0f2c70.png)
   
+  * 잠재 변수 : 바로 이전 정보를 제외한 나머지정보로 모델을 만든것
   
+  ![image](https://user-images.githubusercontent.com/63588046/150106431-23f61dd8-f30a-4b84-8de8-7508b439425e.png)
   
+  * RNN 모형
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150106721-56383742-4838-43f6-ae6d-8c3e1c5e1745.png)
   
   </details>
 
