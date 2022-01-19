@@ -80,6 +80,7 @@
   (파라미터 존재!!, 무한히 많거나 유연히 바뀜 )(일반적인 인공지능은 비모수)
   * 데이터 생성 원리 먼저 고려 -> 확률분포 가정
   * 표집 분포 : 표본 평균과 표본 분산과의 분포 != 표본 분포
+  * 표집분포는 **샘플링에 평균** 으로 분포를 만듬
   
   ![image](https://user-images.githubusercontent.com/63588046/149907271-723bf15b-7e20-4e3f-9e6f-4dbc337bebbe.png)
   
@@ -95,17 +96,149 @@
   로그가능도는 최대값을 찾으므로 음의 로그가능도를 가지고 최적화
   ![image](https://user-images.githubusercontent.com/63588046/149910697-a84fd93e-452b-459e-a538-413a17f70cfa.png)
   
-  표집분포는 **샘플링에 평균** 으로 분포를 만듬
+ 
   
   (표본분포는 정규분포가 될 수 없을수도 있지만 N이 커지면 표집분포는 정규분포가 된다.)
 
   * 정규분포에서 로그가능도 구하기
   
-  ![image](https://user-images.githubusercontent.com/63588046/149914260-08fb0030-a0e1-41e1-946f-b90dd15b23c9.png)
+  ![image](https://user-images.githubusercontent.com/63588046/150072970-cdb2a477-686f-4661-945e-e43fc9eb83f5.png)
+  
+  => 최대 가능도로 바꾸려면 지수안에 넣어야함!!!!
+  
+  * 카테고리 분포에서 최대가능도 구하기
+  카테고리 분포 Multinoulli(x; p1,p2,,,,pd) 단 모든 p들의 합은 1
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150046876-391392f9-3b97-4550-bfb4-9c3e1f150f2f.png)
+  
+  * 라그랑주 승수법
+  g(x, y)=k 인 조건에서 f(x, y)를 최대화할때 사용하는 방식
+  g를 0으로 만들고 f와 g 의 grad 값이 동일하다고 가정하고 푼다.
+  
+  <pre><code> EX. 양수 x1,x2,,,xn의 합이 n일때 곱의 최대값은?</code></pre>
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150055392-cba2c589-d39f-4fdd-9acb-c53b9b45248d.png)
+ 
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150046972-235b1a3f-ce22-48bd-b21e-9fdc613397f2.png)
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150047114-86934fbf-742e-4f32-a253-9d002b60e052.png)
+  
+  * 딥러닝 최대 가능도 추정
+  분류문제에서는 softmax 벡터 (p1,,,pk) 모델링, 이때 y=(y1,,,yk)는 정답 레이블
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150047658-03620076-4046-4c6b-94a6-8089a96da1cc.png)
+  
+  * 확률 분포의 거리 구하기 (확률 분포 P와 Q의 거리 구하기)
+  1. 총변동 거리(TV)
+  2. 쿨백-라이블러 발산 (KL)
+  3. 바슈타인 거리 (Wasserstein Distance)
+  
+  * KL
+  분류 : **정답 레이블 P와 모델 예측 Q의 최대가능도 = KL 최소화**
+  
+  => 엔트로피 값은 상수임(p값은 고정되어 있으므로) 즉 KL 최소화는 크로스 엔트로피의 최소화를 의미함
+  
+  => 크로스 엔트로피 식은 로그가능도의 음수 붙이는 것과 동일
+  
+  => 크로스 엔트로피 최소화 = 로그 가능도 최대화
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150049172-afecd54e-7ade-4bf5-b1ed-d78ff8781743.png)
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150049207-9845a62b-8631-44db-a23c-c9ba64223dd6.png)
+  
+  </details> 
   
   
+<details><summary> 베이즈 통계학 </summary>
+  
+  * 베이지안
+  A 가 주어질때 B가 일어날 확률 -> B가 주어질때 A가 일어날 확률로 바꿈
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150062503-6bf3d10b-d011-4a33-9dfa-10e4deaf0018.png)
+  
+  사전확률 : 데이터를 분석하기 전에 가설에 의해 생기는 확률
+  
+  Evidence : 데이터의 분포
+  
+  likelihood : 주어진 파라미터에서 D 분포가 관찰될 확률
+  
+  
+   <pre><code> EX. Covid의 발병률이 10%로 알려져있다. 실제로 Covid에 걸렸을때 검진될 확률 99%, 실제로 걸리지 않았을 때 오검진 확률 1%
+   어떤 사람이 질병에 걸렸다고 검진결과가 나왔을 때 정말로 Covid에 감염되었을 확률은?</code></pre>
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150063434-fc1cdedb-d548-4579-888f-998a7b6dc14a.png)
+  
+  * 조건부 확률 시각화
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150063748-9dfbdf91-9c83-4202-be34-7a33f77ee27b.png)
+  
+  * 조건부 확률로 인과관계 해석하면 안된다!!
+  * **인과관계**를 가지고 예측 모형을 만들면 **강경한 모형**을 만들 수 있다.
+  * 인과관계를 알아내기 위해서는 **중첩요인**을 제거하고 원인에 해당하는 변수만의 인간관계를 만들어야 한다. 
+  
+  (Ex. 키와 지능을 평가할때 나의!!의 요인 제거)
+  
+  
+  </details>
+  
+  
+  
+
+<details><summary> CNN </summary>
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150079904-c7bbd0a5-df84-4407-b6f0-dbac5c8f8be3.png)
+  
+  * convolution 연산 : 국수적으로 신호를 진폭, 감소
+  * 정의역 내에서 계속 움직여도 커널은 변하지 않음
+  * lacal하게 적용 (주어진 정보 증폭 or 감소)
+  
+  Conv2d 연산 후 출력 크기
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150099586-89b2da7d-a628-48e4-96d9-00336da973c6.png)
+  
+  * 연산할 때 채널의 개수만큼 커널의 개수 필요
+  * convolution 연산은 역전파할때 convolution 연산이 나옴 (convolution 미분해도 convolution)
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150099997-1b55ba48-1a0d-491b-b5ff-88c2fbaae56b.png)
+  
+  * convolution 연산 결과
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150101528-64d93d64-2bdf-4f49-939d-a313198c7eb6.png)
+  
+  * 역전파 - 입력값 변화 (델타는 미분값)
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150103238-501a9742-be2b-4890-8891-74a2c4af5188.png)
+  
+  * 역전파 - 커널값 변화
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150102338-d06a8445-635b-470a-a13f-b7794dc0fc29.png)
+  
+  *최종
+  
+  ![image](https://user-images.githubusercontent.com/63588046/150102439-661deb03-8d35-499e-bfdc-a2d01704a0d8.png)
+
+  </details>
+
+
+
+
+<details><summary> RNN </summary>
+  
+  
+  
+  
+  
+  
+  
+  </details>
+
+
 L2 norm 표시 : ||y-XB||~2~
 
 softmax(o) = (exp(o1)/시그마(exp(o_i),exp(o2)/시그마(exp(o_i),,,,)
 softmax는 모델을 분류할 때 사용한다.
 
+
+  
+  
