@@ -261,7 +261,7 @@
   
   * 미분값이 1 이상이거나 너무 작으면 학습이 불안정해짐
   
-  ![image](https://user-images.githubusercontent.com/63588046/150247838-f4c05b06-9205-4602-976c-63d762df5810.png)
+  ![image](https://user-images.githubusercontent.com/63588046/150297741-0b8b04fc-e876-48fc-89c0-3863d43cbea6.png)
   
   * 길이가 길어질수록 과거 정보에 대한 정보 소실이 커진다.
   
