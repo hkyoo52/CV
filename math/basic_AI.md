@@ -208,6 +208,12 @@
   * 정의역 내에서 계속 움직여도 커널은 변하지 않음
   * lacal하게 적용 (주어진 정보 증폭 or 감소)
   
+  * Covn 장점
+  1. parameter 축소 가능
+  
+  2. filter 수를 늘릴 수 있다(이미지는 주변 filter에 영향 많이 받아서 filter수 늘리는 것은 매우 좋음)=>공간감 생성
+  
+  
   Conv2d 연산 후 출력 크기
   
   ![image](https://user-images.githubusercontent.com/63588046/150099586-89b2da7d-a628-48e4-96d9-00336da973c6.png)
