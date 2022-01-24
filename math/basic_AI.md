@@ -41,6 +41,9 @@
   
   * chain rule을 사용해서 연속적으로 weight를 업데이트한다.
   
+  https://wikidocs.net/37406
+  
+  위 사이트 꼭 숙지!!!
 </details>
 
 
