@@ -81,5 +81,7 @@ for epoch in range(epochs):
 
 ## DataLoader
 DataLoader(Dataset, batch_size= ,shuffle=True ~)
+
 sampler : 어떻게 데이터를 뽑을 것인가
+
 collate_fn : [[data,label],[data,label],,,,[data,label]] -> [data,data,data,,,,],[label,label,,,]로 변환
