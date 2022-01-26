@@ -82,6 +82,29 @@ for epoch in range(epochs):
 ## DataLoader
 DataLoader(Dataset, batch_size= ,shuffle=True ~)
 
-sampler : 어떻게 데이터를 뽑을 것인가
+* batch_size : 배치 사이즈
+* shuffle : 데이터를 섞어서 사용할 것인가
+* sampler : 어떻게 데이터를 뽑을 것인가(index 컨트롤) (이거 사용하려면 shuffle=False여야함)
+    SequentialSampler : 항상 같은 순서
+    RandomSampler : 랜덤, replacemetn 여부 선택 가능, 개수 선택 가능
+    
+    SubsetRandomSampler : 랜덤 리스트, 위와 두 조건 불가능
+    
+    WeigthRandomSampler : 가중치에 따른 확률
+    
+    BatchSampler : batch단위로 sampling 가능
+    
+    DistributedSampler : 분산처리 (torch.nn.parallel.DistributedDataParallel과 함께 사용)
+    
+* num_workers: 불러올 서브 프로세스 개수 (이게 크면 속도는 감소) (단 너무 크면 오히려 병목현상 생김)
+* collate_fn : 데이터의 크기를 맞추기 위해 많이 사용함
+  <img src="https://www.coastalcreative.com/wp-content/uploads/2019/10/collated-not-collated-543x600.jpg" width=50%>
+<a href='https://www.coastalcreative.com/wp-content/uploads/2019/10/collated-not-collated-543x600.jpg'><div align='center'>이미지 출처: https://coastalcreative.com</div></a>
+
+* drop_last : batch_size에 따라서 마지막 batch의 길이가 달라질 수 O, 마지막 배치를 사용 안한다는 의미
+* time_out : data 불러오는데 최대 시간
+* transform : 
+
+    
 
 collate_fn : [[data,label],[data,label],,,,[data,label]] -> [data,data,data,,,,],[label,label,,,]로 변환
