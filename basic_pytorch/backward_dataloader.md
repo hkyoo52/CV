@@ -101,10 +101,26 @@ DataLoader(Dataset, batch_size= ,shuffle=True ~)
   <img src="https://www.coastalcreative.com/wp-content/uploads/2019/10/collated-not-collated-543x600.jpg" width=50%>
 <a href='https://www.coastalcreative.com/wp-content/uploads/2019/10/collated-not-collated-543x600.jpg'><div align='center'>이미지 출처: https://coastalcreative.com</div></a>
 
+collate_fn : [[data,label],[data,label],,,,[data,label]] -> [data,data,data,,,,],[label,label,,,]로 변환
+
 * drop_last : batch_size에 따라서 마지막 batch의 길이가 달라질 수 O, 마지막 배치를 사용 안한다는 의미
 * time_out : data 불러오는데 최대 시간
-* transform : 
+* transform : 입력값이 고정되지 않을 수 있음(데이터의 크기가 동일하지 않음) => 동일하게 만듬(resize)
+### transform 주요 함수
+```python
+transforms.Resize((이미지크기))(이미지) : 이미지 크기 변경
+transforms.RandomCrop((위치))(이미지) : 지정된 위치에서 random하게 자름
+transfroms.RandomRotation(각도)(이미지) : 이미지를 회전시킴
+transforms.TOPILImage()(이미지) : 이미지 출력하기
+transforms.Compose([transforms함수1,transforms함수2,,,])(이미지) : transforms함수 여러개 한번에 적용
+```
+### 데이터 다운로드
+![image](https://user-images.githubusercontent.com/63588046/151105250-00d082ad-7321-4455-a688-884bf48ae114.png)
+
+
+
+
 
     
 
-collate_fn : [[data,label],[data,label],,,,[data,label]] -> [data,data,data,,,,],[label,label,,,]로 변환
+
