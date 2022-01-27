@@ -44,3 +44,31 @@ for param in my_model.parameters():
 for param in my_model.linear_layers.parameters():
     param.requires_grad = True
 ```
+
+### tensorboard
+```python
+from torch.utils.tensorboard import SummaryWriter
+
+writer = SummaryWriter('app/fashion_mnist_experiment_1')
+%load_ext tensorboard
+%tensorboard --logdir "app"
+
+# get some random training images
+dataiter = iter(trainloader)
+images, labels = dataiter.next()
+
+# create grid of images
+img_grid = torchvision.utils.make_grid(images)
+print(img_grid.shape)
+
+# show images
+matplotlib_imshow(img_grid, one_channel=True)
+
+# write to tensorboard    (내가 만든것을 writer에 넣어야 tensorboard에서 볼 수 있다.
+writer.add_image('four_fashion_mnist_images', img_grid)
+
+writer.add_graph(net, images)
+writer.close()                 #close를 해야 tensorboard에서 사용 가능하다
+```
+
+유료 사이트중이서 weigth & bias라는 사이트 존재 (프로젝트형식으로 되어있고 시각화 good)
