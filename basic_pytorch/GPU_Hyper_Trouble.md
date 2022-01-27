@@ -150,6 +150,7 @@ with torch.no_grad():
     test_loss+=F.nll_loss(output,target,size_average=False).item()
     pred=output.data.max(1,keepdim=True)[1]
     correct+=pred.eq(target.data.view_as(pred)).sum()
+```
 
 
 
