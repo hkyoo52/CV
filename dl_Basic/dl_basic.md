@@ -30,7 +30,7 @@ $$
 * layer의 개수가 1개여도 충분히 설명 가능 하지만 여러 층이여야 더 빠르게 설명할 수 있다.
 
 #### loss function
-* Regression : MSE 
+* Regression : MSE (Loss를 제곱해서 많이 틀리는 곳을 더 많이 집중하게 만들어줌) 
 * Classification : CE => y값이 원핫 인코딩으로 되어있음, 그래서 원하는 값만 더 커지게 하고 싶음
 * Probability : MLE => 출력값이 단지 숫자가 아니라 확률적인 것을 알고 싶을때
 
@@ -79,7 +79,8 @@ sharp할 경우 약간의 차이로 인하여 결과값이 많이 차이남 => s
 
 #### Momentum
 ![image](https://user-images.githubusercontent.com/63588046/152719460-24c13f7d-6be2-4466-ba84-46ca570137f1.png)
-* 이전에 갔던 정보를 가지고 있음 
+* 이전에 갔던 gradient를 가지고 다음번에 사용
+* 이전의 정보를 사용하므로 훨씬더 많은 데이터를 볼 수 있음
 
 #### Nesterov Accelerated Gradient
 ![image](https://user-images.githubusercontent.com/63588046/152719746-0729c46e-ed6d-48fd-b903-8b7e29daf2e2.png)
@@ -91,4 +92,47 @@ sharp할 경우 약간의 차이로 인하여 결과값이 많이 차이남 => s
 
 * 각각의 파라미터가 얼마나 변했는지 파악하고 많이 변할수록 조금 학습시킴
 * G 값이 계속 커지기때문에 학습 할수록 학습이 안됨
+
+#### Adadelta
+![image](https://user-images.githubusercontent.com/63588046/152726941-2418ecce-abc5-454a-9835-f1c29955fbd8.png)
+
+* G가 계속 커지는 것을 방지
+
+#### RMSprop
+![image](https://user-images.githubusercontent.com/63588046/152727007-b26623e8-2517-48d1-8757-4ac318eb3687.png)
+
+#### Adam
+![image](https://user-images.githubusercontent.com/63588046/152727110-d09c06eb-70d3-4007-8284-3d00692a552b.png)
+
+* moment + Adapt learning(적게 학습한 파라미터는 많이 학습)
+* EMA 정보를 계속 가지고 있음
+* 성능이 보통 제일 좋음
+* Adam이 매우 빠르게 학습한다.
+
+## Regularization
+#### Early stopping
+* validation error가 올라갈려고 할때 학습을 멈춤
+
+#### Parameter Norm Penalty
+![image](https://user-images.githubusercontent.com/63588046/152727388-4aa2e877-b0ac-4ccf-8f2b-3ff8d835559c.png)
+
+* 파라미터 값을 최대한 작게 만듬 -> 함수가 부드러워짐
+* 일반 가정 : 함수가 부드러울수록 일반화가 잘 된다.
+
+#### Data Augmentation
+* 데이터가 한정적이기 때문에 가지고 있는 데이터를 가지고 변화를 줌(돌리고 크기를 키우는 것 등)
+
+#### Noise Robustness
+* 입력 데이터 혹은 weight에 noise를 줌
+* test에서 더 좋은 결과를 보여줌
+
+#### Label Smoothing - 노력대비 성능이 많이 높아짐
+* 입력값과 label을 섞어줌 => 함수가 부드러워짐
+
+#### Dropout
+* 노드를 몇개 없앰
+
+#### Batch Normalization
+* 적용하려고한 레이어를 정규화시킴
+* 레이어가 깊어질수록 성능이 좋아진다.
 
