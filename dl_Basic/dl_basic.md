@@ -1,3 +1,5 @@
+<details><summary> 딥러닝 기본 구조 </summary>
+  
 #### Data
 문제를 어떻게 해결할건지에 따라 데이터가 달라짐
 
@@ -11,6 +13,9 @@ Ex. MSE, CE, MLE
 
 #### Optimizzation Algorithm
 실제 환경에서 잘 작동하도록 사용하는 테크닉
+</details>
+
+<details><summary> 딥러닝 기본  </summary>
 
 ### Linear Regression
 $$
@@ -66,8 +71,24 @@ $$
 ![image](https://user-images.githubusercontent.com/63588046/152718136-dfe1d73e-0064-40db-bfd4-4f4c3cc0402c.png)
 sharp할 경우 약간의 차이로 인하여 결과값이 많이 차이남 => small batch가 일반적으로 더 좋은 성능을 보인다.
 
+</details>
+  
 #### Gradient Descent
-$$x+y=3\\-x+3y=2$$
+![image](https://user-images.githubusercontent.com/63588046/152719316-5785eea4-407a-40da-ae6d-546940cd5bab.png)
+* 적절한 learning rate 구하는게 너무 어려움
 
+#### Momentum
+![image](https://user-images.githubusercontent.com/63588046/152719460-24c13f7d-6be2-4466-ba84-46ca570137f1.png)
+* 이전에 갔던 정보를 가지고 있음 
 
+#### Nesterov Accelerated Gradient
+![image](https://user-images.githubusercontent.com/63588046/152719746-0729c46e-ed6d-48fd-b903-8b7e29daf2e2.png)
+* 현재 정보를 가지고 이동을 한 다음에 그 정보를 가지고 gradient를 계산해서 accumerate를 함
+* momentum이 local minimum을 잘 못들어가는 것에 비해 NAG는 잘 들어간다.
+    
+#### Adagrad
+![image](https://user-images.githubusercontent.com/63588046/152719874-786d31b1-beba-4efa-919a-741008646a5a.png)
+
+* 각각의 파라미터가 얼마나 변했는지 파악하고 많이 변할수록 조금 학습시킴
+* G 값이 계속 커지기때문에 학습 할수록 학습이 안됨
 
