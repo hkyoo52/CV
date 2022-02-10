@@ -59,6 +59,12 @@
 
 
 ### encoder
+#### 2차원 행렬 softmax 계산
+dim=1로 계산
+![image](https://user-images.githubusercontent.com/63588046/153328193-b7e3c523-f36b-4c77-b08c-52f714d81753.png)
+
+
+
 #### self-attention
 * n개의 단어가 주어지면 n개의 벡터로 바꿈, 한 벡터를 바꿀때 같이 있는 다른 n-1개의 벡터도 같이 고민
 * 어떤 단어와 어떤 단어가 관계가 있는지 파악 Ex. animal didn't cross the street because it was to tired => animal=it
