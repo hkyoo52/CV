@@ -130,6 +130,13 @@ gpu_usage()   #텐서 지운 후 GPU Usage 상태 보여줌
 torch.cuda.empty_cache()
 gpu_usage()   #cache 비운 후 GPU Usage 상태 보여줌 <= 효과적으로 GPU 메모리 지워줌(학습 직전에 사용!!)
 ```
+#### CPU cache 삭제
+```python
+import gc
+gc.collect()
+torch.cuda.empty_cache()
+````
+
 
 #### tensor로 축적되는 변수 확인
 
