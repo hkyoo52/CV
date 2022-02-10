@@ -61,6 +61,7 @@
 ### encoder
 #### 2차원 행렬 softmax 계산
 dim=1로 계산
+
 ![image](https://user-images.githubusercontent.com/63588046/153328193-b7e3c523-f36b-4c77-b08c-52f714d81753.png)
 
 
