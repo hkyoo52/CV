@@ -62,6 +62,10 @@
 #### 2차원 행렬 softmax 계산
 **dim=1로 계산**
 
+* softmax 사용 이유
+  - 필요한 정보만 attention 하기 위해서(다른 정보는 값을 작게 만들려고
+  - 후속에서 온 정보는 (큰 정보) -무한을 줘서 무시 할 수 있게 하려고
+
 ![image](https://user-images.githubusercontent.com/63588046/153328193-b7e3c523-f36b-4c77-b08c-52f714d81753.png)
 
 
