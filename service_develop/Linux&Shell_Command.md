@@ -44,7 +44,7 @@
 * man : 쉘 커맨드 메뉴
 * q : 종료
 * mkdir : 폴더 생성하기(make directory)
-* ls : 현재 접근한 폴더의 폴더, 파일 확인
+* ls : 현재 접근한 폴더의 폴더, 파일 확인 (doskey ls=dir 입력후 ls 넣으면 파일 확인해줌)
 * pwd : 현재 폴더 경로를 절대 경로로 보여줌
 * cd : 폴더 변경하기, 폴더 이동하기(change directory)
 * echo : 출력하기(echo "hi" )
@@ -91,11 +91,11 @@
 #### cat
   * 특정 파일 내용 출력(cat vi-test.sh)
   * 여러 파일 인자로 주면 합쳐서 출력(cat vi-test2.sh vi-test3.sh)
-  * 파일 저장(cat vi-test2.sh vi-test3.sh > new_test.sh)
-  * 파일 추가(cat vi-test2.sh vi-test3.sh >> new_test.sh)
+  * 파일 저장(cat vi-test2.sh vi-test3.sh > new_test.sh) or cmd에서는 (echo "입력할말" > "새로 생성할 파일 이름")
+  * 파일 추가(cat vi-test2.sh vi-test3.sh >> new_test.sh) or cmd에서는 (echo "추가할말" >> "추가할 파일 이름")
 
 #### clear
-  * 터미널 창을 깨끗하게 해줌
+  * 터미널 창을 깨끗하게 해줌 (doskey clear = cls 하고 나서 cls 누르면 깨끗하게 해줌)
 
 #### history
   * 최근에 입력한 쉘 커맨드 History 출력(Ex. !30)
@@ -162,7 +162,9 @@
   * r : 읽기
   * w : 쓰기
   * X : 실행하기
-  * 
+
+#### 파일에 글자 몇 개 있는지 체크
+ * find "찾을 글자" /c 파일명
 
 
 
