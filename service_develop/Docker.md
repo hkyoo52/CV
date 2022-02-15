@@ -15,7 +15,28 @@
 * 다른 사람 소프트웨어 가져옴 (Ex. MySQL, Jupyer를 Docker 실행)
 * 원격 저장소에 저장하면 어디서나 실행
 
+#### 실습
 
+* docker pull mysql:8 : 다운 받을 이미지 다운(여기서 이미지는 Docker Image)
+* docker images : 다운 받은 이미지
+* docker run --name mysql-tutorial -e MYSQL_ROOT_PASSWORD=1234 -d -p 3306:3306 mysql:8
+  * --name : 이름
+  * -e : 환경변수 설정(비밀번호 등) 
+  * -d : background 모드, 설정하지 않으면 현재 실행하는 셀 위에서 컨테이너 실행
+  * -p : 포트 지정 : 3306으로 접근시 컨테이너 포트 3306으로 연결된다
+* docker ps : 실행한 컨테이너
+* docker exec -it "컨테이너 이름" /bin/bash : 컨테이너 진입
+* mysql -u root -p : MySQL 프로세스로 들어감
+* docker ps -a : 작동을 멈춘 컨테이너 확인
+* docker rm  "컨테이너 이름"  : 컨테이너 삭제
+
+#### docker run 공유
+* 컨테이너 내부는 컨테이너 삭제할때 파일도 같이 사라짐
+* Volume Mount 진행하면 Host와 Container의 폴더가 공유됨
+
+
+#### Docker Image 만들기
+* Dockerhub에 공개된 모든 이미지 다운받을 수 있음
 
 
 
