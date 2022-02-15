@@ -8,7 +8,15 @@
 #### Docker
 * Container 기술을 쉽게 사용할 수 있게 함
 * Docker Image : 컨테이너 실행할 때 사용하는 '탬플릿', Read Only, 수정X (PC방에서 프로그램 깔아도 재부팅시 원상태로 복구)
-* Docker Container : Docker Image 활용해 실행된 인스턴스, 
+* Docker Container : Docker Image 활용해 실행된 인스턴스, Write Only
+
+
+#### Docker로 할 수 있는 일
+* 다른 사람 소프트웨어 가져옴 (Ex. MySQL, Jupyer를 Docker 실행)
+* 원격 저장소에 저장하면 어디서나 실행
+
+
+
 
 
 
