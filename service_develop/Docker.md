@@ -39,6 +39,33 @@
 * Dockerhub에 공개된 모든 이미지 다운받을 수 있음
 
 
+## FastAPI 패키지 실행
+**shell**
+* python -m venv .venv : 가상환경
+* source .venv/bin/activate
+* pip install pip --upgrade
+* pip install "fastapi[all]"
+* pip freeze > requirements.txt
+
+#### 도커파일 만들기
+**도커파일**
+```ptyhon
+FROM 이미지 이름
+COPY. /app  # 컨테이너 내 디렉토리
+WORKDIR /app  #컨테이너 내 디렉토리
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1  # ENV 환경변수 이름=값
+RUN pip install pip==21.24 && \
+      pip install -r requirement.txt   # 실행할 리눅스 명령어, &&\는 2개를 한번에 실행하겠다.
+CMD ["python", "main.py"\]             # CMD[실행할 명령어, 인자]
+```
+
+#### 그 이후
+* docker build "dockerfile 위치 경로"   : 이미지 빌드
+* docker run "이미지 이름:태그"         : 이미지 실행
+
+
+
 
 
 
