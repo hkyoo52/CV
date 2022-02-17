@@ -17,7 +17,7 @@
 
 #### 실습
 
-* docker pull mysql:8 : 다운 받을 이미지 다운(여기서 이미지는 Docker Image)
+* docker pull 이름(docker pull mysql:8) : 다운 받을 이미지 다운(여기서 이미지는 Docker Image)
 * docker images : 다운 받은 이미지
 * docker run --name mysql-tutorial -e MYSQL_ROOT_PASSWORD=1234 -d -p 3306:3306 mysql:8
   * --name : 이름
@@ -26,9 +26,12 @@
   * -p : 포트 지정 : 3306으로 접근시 컨테이너 포트 3306으로 연결된다
 * docker ps : 실행한 컨테이너
 * docker exec -it "컨테이너 이름" /bin/bash : 컨테이너 진입
-* mysql -u root -p : MySQL 프로세스로 들어감
+ * mysql -u root -p : MySQL 프로세스로 들어감
+ * 비밀번호는 만들었을때 번호(1234)
+ * exit : 나가기
 * docker ps -a : 작동을 멈춘 컨테이너 확인
-* docker rm  "컨테이너 이름"  : 컨테이너 삭제
+* docker contatiner '이름' : 실행중인 컨테이너 중지
+* docker rm  "이름"  : 컨테이너 삭제
 
 #### docker run 공유
 * 컨테이너 내부는 컨테이너 삭제할때 파일도 같이 사라짐
