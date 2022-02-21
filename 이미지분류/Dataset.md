@@ -17,12 +17,18 @@
 * High Bias -> underfitting, High Variance -> Overfitting
 * Train/Validation : 검증할 때 Test에 영향을 미치면 안됨!!
 * Data Augmentation : 데이터가 가질 수 있는 Class, State의 다양성
-             => 원본 데이터는 매우 잘 정제되있을 가능성이 있음, noise 등을 줘야 더 robust 하게 만들 수 있음
+
+         => 원본 데이터는 매우 잘 정제되있을 가능성이 있음, noise 등을 줘야 더 robust 하게 만들 수 있음
 
 ![image](https://user-images.githubusercontent.com/63588046/154897362-84dc87cc-0963-4962-abb8-350e53b3717c.png)
 
 
-* 
+* 우리가 이미지를 뒤집어서 찍는 경우가 있을까?, 우리가 이미지가 짤릴 수 있는가? => 의미없는것은 안하기!!
+
+* Albumentations : 좀 더 빠르고 좀더 다양하게 이미지를 변경해줌
+* 여러가지 라이브러닌 도구일 뿐임!! (무조건 X) => 실험으로 증명해야 합니다!!
+
+
 
 
 
