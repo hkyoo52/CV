@@ -15,6 +15,11 @@
 * 오류가 뭐가 나지?
 
 
+#### EDA 하는법
+* column, row 데이터 알기
+* 결측치 처리, 데이터 변환
+* 시각화
+
 ## BaseLine
 ![image](https://user-images.githubusercontent.com/63588046/154891069-e12d1773-8a37-4da3-ae9d-643df99ab90a.png)
 
