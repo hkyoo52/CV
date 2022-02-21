@@ -46,9 +46,11 @@ for i,data in enumerate(tqdm(dataset)):
 
 
 ## Data를 Dataset으로 변경
+
 ![image](https://user-images.githubusercontent.com/63588046/154929054-60afe9ec-7bf1-49f8-8d5b-82f2b10e7d1d.png)
 
 #### Dataset 구조
+* 데이터를 원하는 형태로 출력해주는 클래스
 ```python
 from torch.utils.data import Dataset        # Dataset 라이브러리 상속
 
@@ -65,6 +67,7 @@ class MyDataset(Dataset):                   # MyDataset 클래스 처음 선언
 ```
 
 #### DataLoader 구조
+* Dataset을 더 효율적으로 사용하기 위함
 ```python
 train_loader=torch.utils.data.DataLoader(train_set,
                            batch_size=batch_size,
@@ -79,6 +82,7 @@ train_loader=torch.utils.data.DataLoader(train_set,
 **num_workers 최적 값 찾기**
 ![image](https://user-images.githubusercontent.com/63588046/154930432-452e6fbf-6096-4d28-8f91-997e537a0790.png)
 
+**협업적인 일을 할 때는 Dataset과 DataLoader을 명확히 구분하는 것이 좋다**
 
 
 
