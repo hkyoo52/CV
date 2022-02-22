@@ -41,4 +41,20 @@ class MyModel(nn.Module):
 ![image](https://user-images.githubusercontent.com/63588046/154985913-712c3021-a4e6-4817-b6ce-5620970872e7.png)
 
 
+## Pretrained Model
+* transfer learning = 좋은 품질, 대용량 데이터로 미리 학습한 모델 -> 내 목적에 맞게 변형하여 사용
+* Pretrained 모델은 많고 Pretrained weight를 다운받을 수 있다.
 
+#### 주의점
+* ImageNet은 실생활에 존재하는 이미지를 1000개로 분류
+* 내 목적과 비슷한지 파악해야 한다!!!!
+
+#### Case 1. 학습 데이터가 충분하다
+![image](https://user-images.githubusercontent.com/63588046/155051570-ece79a8b-306f-4bf7-a2ed-2e3064b54bf3.png)
+* **주제가 비슷** => **feature extraction** :Backbone은 학습안해도 된다!!(마지막 분류만 학습하면 됨)
+* **주제가 다름** => **finetuning** : Backbone부터 학습한다.(완전히 무에서 시작하는것보다 ImageNet Pretrained weight를 가지고 학습하는 것이 훨씬 빠르다)
+
+#### Case 2. 학습 데이터가 부족하다
+
+* **주제가 비슷** => classifier만 하는거 추천
+* **주제가 다름** => 다른 모델을 만들어서 다르게 해보자
