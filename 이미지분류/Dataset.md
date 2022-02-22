@@ -49,6 +49,8 @@ for i,data in enumerate(tqdm(dataset)):
 
 ![image](https://user-images.githubusercontent.com/63588046/154929054-60afe9ec-7bf1-49f8-8d5b-82f2b10e7d1d.png)
 
+* id 겹치면 새롭게 만듬
+
 #### Dataset 구조
 * 데이터를 원하는 형태로 출력해주는 클래스
 ```python
