@@ -18,3 +18,7 @@
 
 #### Trying to backward through the graph a second time, but the saved intermediate results have already been freed. Specify retain_graph=True when calling backward the first time.
 * 동일 혹은 일부의 loss 값에 loss.backward를 반복했다.
+
+
+#### Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!
+* .to(device) 안 붙인게 있음
