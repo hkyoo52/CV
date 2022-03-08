@@ -92,10 +92,13 @@
 
 
 #### RetinaNet
+* Focal loss 사용
 * Unet과 비슷한 구조
 * concat 대신에 더하기 사용
 * 각 레이어에 class subset과 box subset 존재
 
+**Feature Pyramid Network 구조**
+  - ow-level feature의 detail한 local 정보와 high-level feature의 global 정보를 모두 활용
 ![image](https://user-images.githubusercontent.com/63588046/157175024-595e5514-ced7-434d-a4ca-413cbba5ade2.png)
 
 
