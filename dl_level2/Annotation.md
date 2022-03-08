@@ -4,6 +4,7 @@
 
 ## Augmenting data
 * 존재하는 데이터의 주변에 새로운 데이터 생성
+* 
 ![image](https://user-images.githubusercontent.com/63588046/156956983-8194c1a7-54e9-4e28-b90f-144031b5acea.png)
 
 #### Augment 방법
@@ -44,6 +45,7 @@ img_cropped = image[y_start : y_start+crop_y_size, x_start : x_start+crop_x_size
 #### Affine transformation
 * 길이와 비율을 유지하고 변형시키는 방법
 * 대응 쌍으로 바뀜
+
 ![image](https://user-images.githubusercontent.com/63588046/156957941-3c2612b7-da41-4726-ae60-101cdcc38230.png)
 ```python
 rows,cols,ch=image.shape
@@ -63,8 +65,10 @@ shear_img = cv2.warpAffine(image, M, (cols,rows))   # 일정 크기로 출력
 #### Transfer learning
 * 미리 학습한 데이터셋으로 우리의 데이터셋 학습
 * fully connected layer만 바꾸는 방식
+
 ![image](https://user-images.githubusercontent.com/63588046/156959100-1705139d-65c7-456b-ab0d-0188b05e3b72.png)
 * convolution layer도 learning rate를 작게 잡아서 학습하는 방식
+
 ![image](https://user-images.githubusercontent.com/63588046/156959212-595c7b00-f593-43e0-941c-27611e1243a0.png)
 
 #### Knowledge distillation
@@ -72,7 +76,9 @@ shear_img = cv2.warpAffine(image, M, (cols,rows))   # 일정 크기로 출력
 * 최근에는 pseudo-labeling(label이 안된 데이터에 label 붙이기)에 사용
 * student model이 teacher model이 학습하는 것을 따라가게 만듬 
 * student Model만 backward 사용!! -> labeling 안된 student model을 예측 label 생김 (distillation loss, student loss 모두 student model만 변경시킴)
+
 ![image](https://user-images.githubusercontent.com/63588046/156959916-fc2aa1bd-312b-499a-94f1-5880534a71a6.png)
+
 ![image](https://user-images.githubusercontent.com/63588046/156960226-fbf27d2c-ed0d-4cdd-b739-6267ab1bfa2c.png)
 
 **softmaxt with temperature (T)**
@@ -95,7 +101,9 @@ shear_img = cv2.warpAffine(image, M, (cols,rows))   # 일정 크기로 출력
 * unlabel 데이터 pretrained model로 label
 * 이 데이터들로 다시 모델 재학습
 * student model이 점점 커짐
+
 ![image](https://user-images.githubusercontent.com/63588046/156961514-8894dbfe-0b8b-4b61-81bc-5b7f16ab1e40.png)
+
 ![image](https://user-images.githubusercontent.com/63588046/156961963-02859637-4938-4211-83ec-6e5158043aa0.png)
 
 
