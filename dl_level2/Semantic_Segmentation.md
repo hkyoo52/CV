@@ -132,6 +132,7 @@ def double_conv(in_channels, out_channels):
 * u : 라벨 비교
 * j : neighbor pixel (grid crf) -> 모든 pixel (dense crf)
 
+![image](https://user-images.githubusercontent.com/63588046/157186177-9c76f087-15ad-42b2-84a2-0b9decfeaa9a.png)
 ![image](https://user-images.githubusercontent.com/63588046/157185822-9d89856e-5d34-47d9-973d-b6cb0a5bd322.png)
 ![image](https://user-images.githubusercontent.com/63588046/157185882-20c0e507-ef51-46a3-b904-10e8e0fb5ac9.png)
 
