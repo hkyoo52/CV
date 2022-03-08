@@ -48,7 +48,43 @@
 * 바로 이전 정보뿐만 아니라 예전 블록의 정보도 경로로 연결해 준다.
 * resnet은 + 를 사용해서 경로를 연결하지만 DenseNet은 concat을 사용한다.
 * concat을 사용하면 정보를 그대로 유지한채 학습할 수 있다.
+```python
+class BottleNeck(nn.Module):
+    def __init__(self, in_channels, growth_rate):
+        super().__init__()
+        inner_channels = 4 * growth_rate
 
+        self.residual = nn.Sequential(
+            nn.BatchNorm2d(in_channels),
+            nn.ReLU(),
+            nn.Conv2d(in_channels, inner_channels, 1, stride=1, padding=0, bias=False),
+            nn.BatchNorm2d(inner_channels),
+            nn.ReLU(),
+            nn.Conv2d(inner_channels, growth_rate, 3, stride=1, padding=1, bias=False)
+        )
+
+        self.shortcut = nn.Sequential()
+
+    def forward(self, x):
+				# Concatenation으로 연결: 
+        return torch.cat([self.shortcut(x), self.residual(x)], 1)
+
+
+# 계속 커지는 것을 방지하려고 Transition 만듬
+class Transition(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super().__init__()
+
+        self.down_sample = nn.Sequential(
+            nn.BatchNorm2d(in_channels),
+            nn.ReLU(),
+            nn.Conv2d(in_channels, out_channels, 1, stride=1, padding=0, bias=False),
+            nn.AvgPool2d(2, stride=2)
+        )
+
+    def forward(self, x):
+        return self.down_sample(x)
+```
 ![image](https://user-images.githubusercontent.com/63588046/156971827-e27a3d95-3b9a-4404-8ea6-dd8fb0af20a8.png)
 
 #### SENet
