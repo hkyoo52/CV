@@ -83,10 +83,11 @@ shear_img = cv2.warpAffine(image, M, (cols,rows))   # 일정 크기로 출력
 
 **softmaxt with temperature (T)**
 
-![image](https://user-images.githubusercontent.com/63588046/156960625-ee750c94-eb71-4597-8ad5-b236128b7d30.png)
-
 * 출력값을 smooth하게 만들어줌 (중간값에 많이 분포) (정보를 더 많이 가지고 있음)
 * 이 것을 사용해서 soft label을 생성하는데 그 이유가 Teacher Model이 어떤 label을 가지는지 궁금하지X, 어떤 개형으로 학습되는지만 궁금함
+
+![image](https://user-images.githubusercontent.com/63588046/156960625-ee750c94-eb71-4597-8ad5-b236128b7d30.png)
+
 
 #### Distillation Loss
 * KL 거리(soft label, soft prediction)
