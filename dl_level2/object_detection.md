@@ -100,7 +100,10 @@
 
 
 #### DETR
+* 이미지를 조각내서 transformer encoder에 넣음
+* decoder에 나온 부분에서 class와 boundbox 구함
 
+![image](https://user-images.githubusercontent.com/63588046/157216698-3260d632-6a8d-41b2-9076-f8faf2a289ec.png)
 
 
 
