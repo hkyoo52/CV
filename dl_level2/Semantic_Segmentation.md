@@ -83,7 +83,7 @@ def double_conv(in_channels, out_channels):
 
 ## DeepLab
 #### Conditional Random Field 
-* 정답과 비교할것이 없기 때문에 처음에는 성능 bad 학습을 하다보면 경계에 tight하게 만들어줌
+* 처음에는 성능 bad 학습을 하다보면 경계에 tight하게 만들어줌
 ![image](https://user-images.githubusercontent.com/63588046/157156858-acf8cd32-eb5a-4bba-85e1-f42749a024f8.png)
 
 #### Dilated convolution 
@@ -107,4 +107,31 @@ def double_conv(in_channels, out_channels):
 
 
 
+## 심화
+#### conditional random field (CRF)
+* 자연어처리에서 사용되는 기술
+* 나는 하늘을 날고 싶다 => 010010101 (다음에 띄어 쓰기 있는 경우 1로 전환)
+* 나는 하늘을 날고 싶다 => 명사 조사 명사 조사 동사 (어미) 동사 => 1 0 1 0 1 0
+
+* 이 방식을 이미지에 적용 => 같은 객체를 모두 1로, 옆에 배경은 모두 0으로 이런 식으로 labeling을 붙여서 학습시키는 방식
+* 매우 tight한 결과를 얻을 수 있음
+* deepnet에서는 cnn을 사용해서 나온 결과를 대상으로 CRF를 적용
+
+![image](https://user-images.githubusercontent.com/63588046/157183289-8fa5b926-3daa-4ab4-b8c4-a3608b3a1981.png)
+
+* I : 이미지
+* X : 각 픽셀의 label
+
+* Unary term : 데이터셋 학습
+* Pairwise term : 주변에 있는 픽셀 정의
+
+![image](https://user-images.githubusercontent.com/63588046/157184034-854083c1-8112-48d4-9d2a-b0f7786bb313.png)
+
+* k^m : m번째 가우시안 커널?
+* w^m : m번째 커널의 가중치(W)
+* u : 라벨 비교
+* j : neighbor pixel (grid crf) -> 모든 pixel (dense crf)
+
+![image](https://user-images.githubusercontent.com/63588046/157185822-9d89856e-5d34-47d9-973d-b6cb0a5bd322.png)
+![image](https://user-images.githubusercontent.com/63588046/157185882-20c0e507-ef51-46a3-b904-10e8e0fb5ac9.png)
 
