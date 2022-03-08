@@ -48,6 +48,10 @@
 * 바로 이전 정보뿐만 아니라 예전 블록의 정보도 경로로 연결해 준다.
 * resnet은 + 를 사용해서 경로를 연결하지만 DenseNet은 concat을 사용한다.
 * concat을 사용하면 정보를 그대로 유지한채 학습할 수 있다.
+
+![image](https://user-images.githubusercontent.com/63588046/156971827-e27a3d95-3b9a-4404-8ea6-dd8fb0af20a8.png)
+
+
 ```python
 class BottleNeck(nn.Module):
     def __init__(self, in_channels, growth_rate):
@@ -85,7 +89,7 @@ class Transition(nn.Module):
     def forward(self, x):
         return self.down_sample(x)
 ```
-![image](https://user-images.githubusercontent.com/63588046/156971827-e27a3d95-3b9a-4404-8ea6-dd8fb0af20a8.png)
+
 
 #### SENet
 * Depth 늘리지 X
