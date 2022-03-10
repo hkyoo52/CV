@@ -110,3 +110,139 @@
 
 
 
+
+
+## 심화 - DETR
+* anchor 방식은 heuristic(매우 비효율적임, 최적의 값을 못찾아서 사용하는 방식) & 중복된 예측을 제거할때 성능 bad
+
+![image](https://user-images.githubusercontent.com/63588046/157575944-d40101ac-0dac-48f7-825c-c42442033f6d.png)
+
+
+
+
+#### 장점
+* 한번에 모든 객체를 찾음 -> 매우 빠르다
+* object가 클 때 성능이 좋다(anchor를 사용X) ... 근데 작아질때는 ㅠㅠ
+
+
+#### DETR 모델
+* N개의 고정된 숫자의 예측 object 추출, 만약 없을 경우 no object를 채워서 N개 맞춤
+* 각각을 매칭함
+* 
+![image](https://user-images.githubusercontent.com/63588046/157592247-83796240-1d1a-4261-a095-3bd2ac7c70c5.png)
+
+
+* loss 값은 헝가리안 loss 사용
+* 만약 no object인 경우 backward할때 전달되는 값을 /10을 함 
+
+![image](https://user-images.githubusercontent.com/63588046/157578822-fff01aa4-8852-4cd7-98bf-b50bbab75f50.png)
+
+![image](https://user-images.githubusercontent.com/63588046/157590325-4963f5c8-d5a5-4c30-b763-cfa844316b77.png)
+
+#### 코드
+```python
+def box_cxcywh_to_xyxy(x):
+    x_c, y_c, w, h = x.unbind(1)
+    b = [(x_c - 0.5 * w), (y_c - 0.5 * h),
+         (x_c + 0.5 * w), (y_c + 0.5 * h)]
+    
+    return torch.stack(b, dim=1)
+
+def rescale_bboxes(out_bbox, size):
+    img_w, img_h = size
+    b = box_cxcywh_to_xyxy(out_bbox)
+    b = b * torch.tensor([img_w, img_h, img_w, img_h], dtype=torch.float32)
+    return b
+    
+    
+    
+    
+class DETRdemo(nn.Module):
+    
+    def __init__(self, num_classes, hidden_dim=256, nheads=8,
+                num_encoder_layers=6, num_decoder_layers=6):
+        super().__init__()
+        
+        
+        # Resnet-50 backbone 모델 할당, backbone은 마지막 fc layer 사용 X
+        self.backbone = resnet50()
+        del self.backbone.fc 
+        
+        
+        self.conv = nn.Conv2d(2048, hidden_dim, 1)    # 7,7,2048 -> 7,7,256 (transformer input token)
+        
+        # pytorch 내 기본 transformer 추가
+        self.transformer = nn.Transformer(hidden_dim, nheads, 
+                                        num_encoder_layers, num_decoder_layers)
+        
+        # 예측을 위한 prediction heads에 background detection을 위한 1 extra class를 추가해줍니다.
+        self.linear_class = nn.Linear(hidden_dim, num_classes + 1)
+        self.linear_bbox = nn.Linear(hidden_dim, 4)
+        
+        # output positional encodings(object queries) 추가 
+        # 100 x 256 차원의 가우시안분포(default)
+        # 이 때, 100은 transformer decoder의 sequence입니다. 
+        self.query_pos = nn.Parameter(torch.rand(100, hidden_dim))
+        
+        # spatial positional embeddings
+        # 역시, original DETR에서는 sine positional encodings을 사용합니다(demo 버전에선 학습용).
+        # 이 때 demo 버전에서는 input의 size를 800 x n 으로 맞춥니다(800<=n<=1600).
+        # backbone인 resnet을 통과시키고 나면 size가 32분의 1로 줄기 때문에 
+        # feature map의 width(또는 height)는 50을 넘지 않습니다. 
+        # forward 단계에서 각 feature map의 size에 맞게 slicing해 사용하게 됩니다. 
+        # hidden dimension의 
+        
+        self.row_embed = nn.Parameter(torch.rand(50, hidden_dim//2))
+        self.col_embed = nn.Parameter(torch.rand(50, hidden_dim//2))
+        
+    def forward(self, inputs):
+        
+        # Resnet-50에서 average pooling layer 전까지 순전파시킵니다. 
+        # resnet은 최초의 convolution - batch norm - relu - maxpool을 거친 후, 
+        # conv-batch norm을 주 구성요소로 하는 Bottleneck layer을 굉장히 많이 통과시킵니다.
+        x = self.backbone.conv1(inputs)
+        x = self.backbone.bn1(x)
+        x = self.backbone.relu(x)
+        x = self.backbone.maxpool(x)
+        
+        x = self.backbone.layer1(x) # layer1은 downsampling을 진행하지 않습니다.
+        x = self.backbone.layer2(x)
+        x = self.backbone.layer3(x)
+        x = self.backbone.layer4(x)
+        # 여기서 tensor x의 shape은 [None, 2048, input_height//32, input_width//32] 입니다.
+        
+        # 2048차원의 channel을 가진 feature map(planes)을 256차원의 channle의 feature map으로 축소시킵니다.
+        h = self.conv(x)
+        # 여기서 tensor h의 shape은 [None, 256, input_height//32, input_width//32] 입니다.
+        
+        
+        # positional encoding을 구성합니다.
+        H, W = h.shape[-2:] # backbone + conv를 통해 생성된 feature map의 높이와 너비입니다. 
+        
+        # 아래의 positional embeddings을 transformer의 input tokens(1d flattened feature map, 즉 tensor h)와 concat함으로써
+        # 위치 정보가 없는 input tokens에 위치 정보가 담기게 됩니다.
+        
+        # 높이, 너비 각각 feature map의 size에 해당하는 positional embeddings을 slicing합니다.
+        # column 정보를 담은 positional embeddings (H x W x 128)과 --> H는 그저 차원을 맞추기 위함입니다.
+        # row 정보를 담은 positional embeddings (H x W x 128)를 생성한 후 --> W는 그저 차원을 맞추기 위함입니다.
+        # concat을 시켜 transformer의 input tokens의 차원인 256과 일치시킨 후 
+        # (H x W x 256)의 2d positional embeddings을 (HW x 256)의 1d positional embeddings으로 flatten 해줍니다.
+        
+        # 이는 2d feature map이 transformer의 input tokens으로 쓰이기 전에 1d feature sequence로 flatten 하는 것과 일치합니다.
+        pos=torch.cat([
+            self.col_embed[:W].unsqueeze(0).repeat(H, 1, 1),
+            self.row_embed[:H].unsqueeze(1).repeat(1, W, 1),
+        ], dim=-1).flatten(0, 1).unsqueeze(1)
+
+        # transformer를 순전파시킵니다.
+        # 1d feature sequence와 positional embeddings가 concat되어 transformer의 input tokens으로 쓰이고, 
+        # object queries의 길이에 해당하는 output token을 반환합니다.  
+        h = self.transformer(pos+0.1*h.flatten(2).permute(2, 0, 1),
+                            self.query_pos.unsqueeze(1)).transpose(0,1)
+        
+        # 최종적으로, transformer output을 class label과 bounding boxes로 사영시킵니다.
+        # 결과의 차원은 (1, len of object queries, # of classes (or 4 in bboxes))입니다. 
+        return {'pred_logits': self.linear_class(h),
+                'pred_boxes': self.linear_bbox(h).sigmoid()}
+
+```
