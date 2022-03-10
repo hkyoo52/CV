@@ -245,4 +245,39 @@ class DETRdemo(nn.Module):
         return {'pred_logits': self.linear_class(h),
                 'pred_boxes': self.linear_bbox(h).sigmoid()}
 
+
+def detect(im, model, transform):
+    
+    # input image를 정규화해줍니다. (batch-size : 1)
+    img = transform(im).unsqueeze(0)
+    
+    # demo의 경우 aspect ratio를 0.5와 2사이만 지원합니다.
+    # 이 범위 밖의 이미지를 사용하고 싶다면 maximum size을 1333이하로 rescaling해야 합니다.
+    assert img.shape[-2] <= 1600 and img.shape[-1] <= 1600
+    
+    # model을 통과시킵니다. 
+    outputs = model(img)
+    
+    # 70 % 이상의 정확도를 가진 예측만 남깁니다.
+    probas = outputs['pred_logits'].softmax(-1)[0, :, :-1]
+    keep = probas.max(-1).values > 0.7
+    
+    # 0과 1사이의 boxes 값을 image scale로 확대합니다.
+    bboxes_scaled = rescale_bboxes(outputs['pred_boxes'][0, keep], im.size)
+    return probas[keep], bboxes_scaled
+
+#visualize
+def plot_results(pil_img, prob, boxes):
+    plt.figure(figsize=(16,10))
+    plt.imshow(pil_img)
+    ax = plt.gca()
+    for p, (xmin, ymin, xmax, ymax), c in zip(prob, boxes.tolist(), COLORS * 100):
+        ax.add_patch(plt.Rectangle((xmin, ymin), xmax - xmin, ymax - ymin,
+                                   fill=False, color=c, linewidth=3))
+        cl = p.argmax()
+        text = f'{CLASSES[cl]}: {p[cl]:0.2f}'
+        ax.text(xmin, ymin, text, fontsize=15,
+                bbox=dict(facecolor='yellow', alpha=0.5))
+    plt.axis('off')
+    plt.show()
 ```
