@@ -93,6 +93,37 @@ elif type == 'Caucy':
 * UV map은 고정된 점으로 각각 id 존재, 움직여도 그 부분에 id가 있으므로 tracking하기 편함
 * id는 text로 표현하지 않고 색으로 표현함(메모리 절약)
 
+![image](https://user-images.githubusercontent.com/63588046/158095120-3d2fc4ba-fe32-47d3-a20e-3f79df22d483.png)
+
+* Faster R-CNN + 3D surface regression branch
+
+![image](https://user-images.githubusercontent.com/63588046/158095173-061aadf3-b9c4-4b94-8676-272a972bb175.png)
+
+
+## Multi task
+#### RetinaFace
+* backbone 위에 Multi-task branch를 넣음
+* 모든 곳으로부터 loss를 backward 하기 때문에 적은 데이터로 높은 성능 향상 기대
+
+![image](https://user-images.githubusercontent.com/63588046/158095462-84c3f08f-2b51-4f69-89bd-580b536a3bd0.png)
+
+
+
+## Detecting objects as keypoints
+
+#### CornerNet 
+* Top-Left, Bottom-Right 2 점을 찾음
+* 매우 속도가 빠름
+* 성능이 조금 떨어짐
+
+![image](https://user-images.githubusercontent.com/63588046/158095861-3aef02fe-1dae-4e85-abb6-6da60122d917.png)
+
+#### CenterNet
+* Width, Height, Center 3개의 점을 찾음
+* Center 찾는 것만으로 더 높은 성능을 보여줌
+* object분야에서 가장 빠르고 가장 좋은 성능을 보여줌
+
+
 
 
 
