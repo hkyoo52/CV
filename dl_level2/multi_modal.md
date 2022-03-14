@@ -66,9 +66,13 @@
 * 
 #### Visual question answering
 * Image Stream과 Question Stream이 존재
+* 각각이 feature dimention vector로 추출
+* 2개를 상호 비교함??
 
-
-
+## Sound represent
+* 소리 변경 - Fourier transform
+* STFT : short-time Fourier Transform
+* 매우 작은 범위로 푸리에 변경
 
 
 
