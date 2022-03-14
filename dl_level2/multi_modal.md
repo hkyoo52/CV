@@ -29,6 +29,49 @@
 ![image](https://user-images.githubusercontent.com/63588046/158133079-a208a821-3612-48ed-87a0-f7c454e7239c.png)
 
 
+## Cross Modal Translation
+#### Image2Sentece
+* 이미지는 CNN 사용해서 FC layer 추출
+* sentence는 RNN 사용해서 만듬
+
+
+![image](https://user-images.githubusercontent.com/63588046/158135005-633609a8-0787-4a4c-8593-94f369d7a8fc.png)
+
+#### Show, Attend, and Tell
+* 문장을 만들때는 전체적인 것보다 지역적인 것에 관심을 더 가져야함
+
+* 14 * 14 feature map 출력
+* Distribution over L location : feature map에서 어느 부분을 attention 할지 찾음
+* feature map과 s1으로 z1 출력
+* z1과 y1(단어)으로 h1 생성
+* h1에서 s2(어디를 attention 할건지)와 d1 생성(생성되는 단어)
+
+
+![image](https://user-images.githubusercontent.com/63588046/158135196-dfd31dc1-ef34-4974-9283-24178ced52f2.png)
+
+![image](https://user-images.githubusercontent.com/63588046/158136262-6ae760c0-b8f0-4b7e-8bbe-ca772803e4e8.png)
+
+![image](https://user-images.githubusercontent.com/63588046/158136600-28113ea6-e25e-4438-94d9-2b740a857083.png)
+
+
+#### Text2Image by Gan
+* 문장을 주고 이미지 생성 (Generation model)
+* 생성된 이미지를 주고 이 문장과 맞는지 파악 (Discriminator model)
+
+![image](https://user-images.githubusercontent.com/63588046/158137268-f05515ce-8d33-4ad9-83f3-d027c2f52734.png)
+
+
+## Cross modal reasoning
+* 다른 모델을 사용해서 결과를 도출해내는 방식
+* 
+#### Visual question answering
+* Image Stream과 Question Stream이 존재
+
+
+
+
+
+
 
 
 
