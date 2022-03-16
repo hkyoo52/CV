@@ -76,7 +76,32 @@
 
 
 
+## Image Captioning
+* CNN -> RNN
+* Decoder에서는 이미지를 attention 한 부분에 대해 글자를 출력
+
+![image](https://user-images.githubusercontent.com/63588046/158501114-fa5fcb49-6f69-4af8-b050-f57488a818b9.png)
 
 
+```python
+class Encoder(nn.Module):
+    def __init__(self,encoded_image_size=14):
+        super(Encoder, self).__init__()
+        self.enc_image_size=encoded_image_size
+        
+        resnet = torchvision.models.resnet101(pretrained=True)
+        modules = list(resnet.childeren())[:-2]     # 마지막 2개의 레어어 사용 X (classification 하지 X)
+        self.resnet = nn.Sequential(*modules)
 
 
+```
+
+#### Beam search
+* 최적의 값은 아니지만 다른 것에 값보다 큰 값 유지
+* k : 몇개의 최적의 값을 사용할 것인가
+* k=3개일 경우 2번째 블록에서 총 9가지 경우가 발생(3 * 3)
+* 이중에서 가장 좋은 경우 3가지 뽑음
+* 3번째에 다시 9가지 경우가 발생
+* 위에 것 반복
+
+![image](https://user-images.githubusercontent.com/63588046/158504528-eec244c8-d810-463b-81e3-2f83173c6fc1.png)
