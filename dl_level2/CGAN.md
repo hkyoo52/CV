@@ -72,18 +72,29 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 심화 과제
 #### Gram matric
+* (C,H,W) -> (C, H * W) 로 변경
+* 각 채널마다 내적 => (C, H * W) * (C, H * W)T = (C, C) 
+* 각 채널마다 어떤 무늬를 띄는지 가지고 있음
+* 내적해서 큰 값을 가진다 => 동시에 두 무늬를 가진다
+
+=> correlation 정보를 담음
+
+![image](https://user-images.githubusercontent.com/63588046/158533238-d89abd9b-0069-4789-be19-c693e9302670.png)
+
+* F : filter
+* i,j : i,j번째 filter
+* k : channel
+* l : layer
+
+
+![image](https://user-images.githubusercontent.com/63588046/158537341-90a5fdca-8560-4ce0-aec9-57d03413abbe.png)
+
+
+
+
+
+
+
+
