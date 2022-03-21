@@ -50,3 +50,17 @@ datasets = [build_dataset(cfg.data.train)]
 train_detector(model, datasets[0], cfg, distributed=False, validate=True)
 ```
 
+
+
+
+# Detectron2
+* Config
+* Trainer
+  * build model
+  * build detection train/test loader
+  * build optimizer
+  * build lr_scheduler
+* Training
+
+
+
