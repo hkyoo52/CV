@@ -57,4 +57,32 @@ outs=[self.fpn_convs[i](laterals[i]) for i in range(4)]
 ## Path Aggregation Network(PANet)
 
 #### FPN 단점
+* resnet backbone이 매우 길다. -> 너무 많은 계산이 있어서 제대로 전달 hard
+
+#### PANet
+* bottom up을 해서 데이터를 전달한다.
+* Adaptive feature Pooling을 진행한다.
+
+![image](https://user-images.githubusercontent.com/63588046/159453486-ae4f9749-7aef-4c20-860c-f172d020b11f.png)
+
+
+
+#### Adaptive Feature Pooling
+* bottom up 할때 나온 모든 값들을 다 ROIAlign(ROI pooling)을 진행해서 각각 feature vector를 구한 후 그것을 바탕으로 원하는 값을 도출
+
+![image](https://user-images.githubusercontent.com/63588046/159454085-72d799d8-1282-4782-b08b-3aa8311b2964.png)
+
+
+
+## DetectoRS
+
+#### Recursive Feature Pyramid (RFP)
+* FPN결과를 backbone이 참고하여 다시 학습
+
+![image](https://user-images.githubusercontent.com/63588046/159454732-8cb97af4-8d75-4dbb-b088-e787f0682850.png)
+
+
+#### ASPP
+
+
 
