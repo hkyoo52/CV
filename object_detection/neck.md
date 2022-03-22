@@ -78,11 +78,19 @@ outs=[self.fpn_convs[i](laterals[i]) for i in range(4)]
 
 #### Recursive Feature Pyramid (RFP)
 * FPN결과를 backbone이 참고하여 다시 학습
+* 시간이 매우 오래 걸림
 
 ![image](https://user-images.githubusercontent.com/63588046/159454732-8cb97af4-8d75-4dbb-b088-e787f0682850.png)
 
 
 #### ASPP
+* 다양한 크기에 conv를 Atrous convolution 진행
+* 결과를 합쳐서 사용
+
+![image](https://user-images.githubusercontent.com/63588046/159456371-daccb6a9-6cdc-4d30-803c-c2bad1a28d01.png)
 
 
+#### Atrous Convolution
+
+![image](https://user-images.githubusercontent.com/63588046/159456011-17ef1fbf-5405-454a-8329-8f942cc1b27a.png)
 
