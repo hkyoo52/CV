@@ -94,3 +94,45 @@ outs=[self.fpn_convs[i](laterals[i]) for i in range(4)]
 
 ![image](https://user-images.githubusercontent.com/63588046/159456011-17ef1fbf-5405-454a-8329-8f942cc1b27a.png)
 
+
+## Bi-directional Feature Pyramid
+* high level feature map과 low level feature map 그냥 더하는 것은 bad
+* 가중합을 해서 더하자
+
+![image](https://user-images.githubusercontent.com/63588046/159612432-50ccfd5f-10a6-4a4b-8ecb-78b131b30fd7.png)
+
+## NASFPN
+* NAS(Neural architecture search)를 사용해서 기본적인 FPN 구조를 만듬
+
+#### 단점
+* 정해진 backbone에만 성능이 좋음 (backbone 바꾸면 다시 NAS로 구조 찾아야함)
+
+## AugFPN
+#### FPN 문제점
+* 서로 다른 level feature간의 semantic 차이
+* Highest feature map 정보 손실
+* 1개의 feature map에서 ROI 생성
+
+![image](https://user-images.githubusercontent.com/63588046/159613526-5b918016-3536-4760-89a3-74ade3522025.png)
+
+
+#### Residual Feature Augmentation
+* residual feature augmentation을 다양한 크기로 pooling
+* 그것을 Adaptive Spatial Fusion 사용
+
+![image](https://user-images.githubusercontent.com/63588046/159613720-6a8793f9-0dba-46b7-b3c8-0cda503cd6c6.png)
+
+#### Adaptive Satial Fusion
+* feature map을 concat함
+* conv를 진행
+* sigmoid사용 -> 각각의 feature map의 가중치를 구함
+
+![image](https://user-images.githubusercontent.com/63588046/159613933-ce9e79ef-0723-4862-bc64-91efd063395d.png)
+
+#### Soft ROI Selection
+* 모든 scale feature에서 ROI projection 진행 후 ROI pooling
+* Channel-wise 가중치 계산 후 가중합 사용
+* PANet의 max pooling을 학습 -> 가능한 가중 합으로 대체
+
+![image](https://user-images.githubusercontent.com/63588046/159630952-b2514436-d70b-4a77-9058-0cb93467b0f8.png)
+
