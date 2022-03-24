@@ -47,5 +47,52 @@
 
 
 ## SSD
+* Extra convolution layer에서 나온 모든 feature map 사용(6개)
+* fully connected layer 사용 X (convolution layer 사용) => 속도 향상
+* default box (anchor box) 사용
+
+![image](https://user-images.githubusercontent.com/63588046/159856359-c5da7994-0778-4547-8f06-c1ee330692b3.png)
+
+
+#### Pipeline
+* (x, y, w, h) 4개 + class 개수 20개 + background 1개
+* box 개수, 위치 구할때 -> scale 0.2 ~ 0.9 6개
+* anchor box : 1/3 ~ 3 5개
+
+![image](https://user-images.githubusercontent.com/63588046/159857558-693e87e0-bacf-4752-b89e-f507bbc7603b.png)
+
+* 6개의 feature map에서 나온 총 bounding box 개수는 8732개
+
+![image](https://user-images.githubusercontent.com/63588046/159858439-ca313dc4-f492-45ab-b9d1-7dad2987ab57.png)
+
+
+#### Training 방법
+* Hard negative mining
+* Non maximum suppression
+
+![image](https://user-images.githubusercontent.com/63588046/159858617-10d32c75-2a31-451b-be6d-046f8c25ef2d.png)
+
+
+
+## YOLO v2
+* Batch normalization 사용 -> mAP 2% 증가
+* 이미지 해상도 증가 -> mAP 4% 증가
+* fully connected layer 제거
+* anchor box 적용 -> 5개
+* Fine-grained feature 사용
+* multi scale training : 다양한 입력 이미지 사용
+* Googlenet -> Darknet (속도 증가)
+
+#### Fine-grained feature
+* 크기가 작은 feature map은 low level 정보 부족
+* Early feature map은 low level 정보 함축
+* Early feature map을 late feature map에 합쳐주는 passthrough layer 도입
+* 26 * 26 feature map 분할 후 결합
+
+![image](https://user-images.githubusercontent.com/63588046/159859336-0e16040b-b565-4ca2-b068-dbcf70d5284c.png)
+
+
+
+
 
 
