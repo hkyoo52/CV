@@ -82,6 +82,7 @@
 * Fine-grained feature 사용
 * multi scale training : 다양한 입력 이미지 사용
 * Googlenet -> Darknet (속도 증가)
+* Imagenet 데이터는 classification loss만 학습, detection 데이터는 classification & bbox loss 학습
 
 #### Fine-grained feature
 * 크기가 작은 feature map은 low level 정보 부족
@@ -93,6 +94,25 @@
 
 
 
+## YOLO v3
+* skip connection 사용
+* Max pooling, conv2d 사용 => resnet과 비슷
+* Multi-scale feature maps 사용
 
 
+#### Multi-scale feature map
+* 서로 다른 3개 scale 사용
+* feature pyramid network 사용
+
+## RetinaNet
+
+#### 1stage 단점
+* 1 stage detector는 ROI가 없음 -> grid를 기준으로 만듬...
+* class imbalance -> positive > negative(객체가 없는 배경 영역)
+
+
+#### Focal Loss
+* 쉬운 예제는 낮은 가중치, 어려운 예제는 큰 가중치
+* 결과적으로 어려운 예제 집중
+* class imbalance가 심한 dataset에도 매우 효과적임
 
