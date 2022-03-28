@@ -74,6 +74,50 @@
 * 일반적은 backbone 사용 X
 
 ## DETR
+* 연산량이 너무 많아서 가장 높은 feature만 사용
+* FFN에서는 N개의 output이 나오는데 이때 N은 이미지가 가지고 있는 object보다 많아야함
+*
+#### train
+* 무조건 N개가 나올 것임
+* no object는 padding 처리해야함
+* 가장 높은 level feature만 사용해서 작은 물체는 탐지를 잘 못한다.
+
+
+## Swin Transformer
+
+#### VIT 문제점
+* VIT에 너무 많은 양의 Data를 학습해야 성능나옴
+* transformer 특성상 계산량이 많음
+* 일반적인 backbone 사용 못함
+
+#### 해결법
+* CNN과 유사한 구조로 설계 (지속적으로 크기 줄임)
+![image](https://user-images.githubusercontent.com/63588046/160366682-8dd8dd7f-6b51-4c89-97fe-5062be72f19b.png)
+
+* Window라는 계념을 활용하여 cost 줄임(Multi-Head Attention 대신에 사용)
+* attention을 2번 진행
+
+![image](https://user-images.githubusercontent.com/63588046/160367033-2bee4a65-1b67-4efd-a3ff-3bb0734efa25.png)
+
+
+#### Multi-Head Attention (W-MSA)
+* window 단위로embedding 나눔
+* 기존 VIT는 embedding을 transformer에 넣지만 Swin은 Window 안에서 transformer 연산 진행
+* 그러나 window안에서만 수행해서 receptive field를 제한하는 단점이 존재한다.
+
+![image](https://user-images.githubusercontent.com/63588046/160367354-4cd4a3a3-0ecd-4a4e-ad6a-7f3a11cfc7b2.png)
+
+#### Shifted Window Multi-Head Attention
+* 다르게 나눠서 transformer 진행
+* 남는 부분들은 옆 혹은 아래로 이동
+* 크기가 다른 경우 masking 처리해서 self-attention 연산이 되지 않도록 함
+
+![image](https://user-images.githubusercontent.com/63588046/160367685-ff51e025-eed4-4b8a-8887-648fbafa0a26.png)
+
+#### 장점
+* 적은 데이터로도 학습 잘됨
+* Window 사용해서 계산량 적음
+* 다양한 backbone 사용 가능 (CNN과 비슷한 구조)
 
 
 
