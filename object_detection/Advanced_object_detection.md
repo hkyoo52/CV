@@ -120,6 +120,30 @@
 * 다양한 backbone 사용 가능 (CNN과 비슷한 구조)
 
 
+## Yolo v4
+* BOF : inference 비용을 늘리지 않고 정확도 향상시키는 방법
+* BOS : inference 비용을 늘리지만 정확도를 크게 향상시키는 방법
+
+![image](https://user-images.githubusercontent.com/63588046/160376585-5d1eb385-2f14-4f7f-8b5a-a1e3c7c5c5c6.png)
+
+
+#### Bag of Freebies (BOF)
+* 입력 이미지의 변화시켜 과접합을 막고, 다양한 환경에서도 강력해지는 방법 
+  * Data augmentation
+  * Semantic Distribution Bias : 데이터셋에 특정 라벨이 많은 경우 사용
+  * Label smoothing : 0과 1로 라벨링하는 것이 아니라 0.1, 0.9 로 바꿈, overfitting, regularization 효과가 있음
+![image](https://user-images.githubusercontent.com/63588046/160376688-085dfbcf-6ee6-4c53-8810-9eab17617e49.png)
+
+
+
+
+
+## M2Det
+
+
+
+## CornerNet
+
 
 
 
