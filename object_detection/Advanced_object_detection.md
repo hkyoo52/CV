@@ -120,11 +120,7 @@
 * 다양한 backbone 사용 가능 (CNN과 비슷한 구조)
 
 
-## Yolo v4
-* BOF : inference 비용을 늘리지 않고 정확도 향상시키는 방법
-* BOS : inference 비용을 늘리지만 정확도를 크게 향상시키는 방법
 
-![image](https://user-images.githubusercontent.com/63588046/160376585-5d1eb385-2f14-4f7f-8b5a-a1e3c7c5c5c6.png)
 
 
 #### Bag of Freebies (BOF)
@@ -135,8 +131,37 @@
 ![image](https://user-images.githubusercontent.com/63588046/160376688-085dfbcf-6ee6-4c53-8810-9eab17617e49.png)
 
 
+## IOU 기반 loss
+* Bounding box 좌표값들을 예측하는 방법은 거리가 일정하더라도 iou가 다를 수 있음
+* iou 기반 loss 사용
+
+#### GIOU
+* 기본적인 iou는 box 사이가 떨어지면 무조건 0임(거리 반영 못함)
+
+## Bag of Specials
+* cost는 발생하지만 성능을 높일 수 있는 도구
+#### Enhancement of Receptive field
+#### Attention Module
+* attention을 사용해서 원하는 것에 집중
+
+![image](https://user-images.githubusercontent.com/63588046/160795819-35b759a5-2a2c-444a-8e1b-6f94ee076b02.png)
 
 
+#### Feature Integration
+
+#### Activation Function
+* Relu를 사용하면 음수값이 될 경우 훈련 X
+* Swis/Mish : 약간의 음수를 허용 -> 모든 구간 미분 가능
+
+#### Post-processing method
+
+## Yolo v4
+* BOF : inference 비용을 늘리지 않고 정확도 향상시키는 방법
+* BOS : inference 비용을 늘리지만 정확도를 크게 향상시키는 방법
+
+![image](https://user-images.githubusercontent.com/63588046/160376585-5d1eb385-2f14-4f7f-8b5a-a1e3c7c5c5c6.png)
+
+* CSPNet 사용 
 
 ## M2Det
 
