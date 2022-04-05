@@ -136,7 +136,7 @@
 * iou 기반 loss 사용
 
 #### GIOU
-* 기본적인 iou는 box 사이가 떨어지면 무조건 0임(거리 반영 못함)
+* 기본적인 iou는 box 사이가 떨어지면 무조건 0임(거리 반영 못함) -> GIOU는 거리 반영
 
 ## Bag of Specials
 * cost는 발생하지만 성능을 높일 수 있는 도구
@@ -159,12 +159,31 @@
 * BOF : inference 비용을 늘리지 않고 정확도 향상시키는 방법
 * BOS : inference 비용을 늘리지만 정확도를 크게 향상시키는 방법
 
-![image](https://user-images.githubusercontent.com/63588046/160376585-5d1eb385-2f14-4f7f-8b5a-a1e3c7c5c5c6.png)
+![image](https://user-images.githubusercontent.com/63588046/161683914-a511c1cc-8d79-4b9d-adad-d9a0a0ea8747.png)
 
-* CSPNet 사용 
+
+![image](https://user-images.githubusercontent.com/63588046/161684781-01cb7f8b-d074-43da-8816-eabcde1a8f29.png)
+
+### CSPNet (Darknet 변경)
+* 정확도 유지하면서 경량화
+* 메모리 cost 감소
+* 다양한 backbone 사용 가능
+* bottlenect 제거
+
+* 전부 conv하는 것이 아니라 일부만 conv하고 옆에 concat하는 구조 (Darknet은 전부를 conv했음)
+![image](https://user-images.githubusercontent.com/63588046/161685789-cad189c7-1989-49c8-9708-52fd05b693cf.png)
+
+![image](https://user-images.githubusercontent.com/63588046/161685188-6d20d9b7-e0a4-4b56-8b9c-54e02f01ab31.png)
+
+* Mosaic은 4장을 합쳐서 사용하는 방식
+* 변형된 SAM (Special wise attention -> Point wise attention)
+* 변형된 PAN (더하기 -> concat)
 
 ## M2Det
+* 다양한 scale에 대하여 학습하기 위해서 multi scale pyramid 사용했음
+* 그러나 multi scale pyramid는 객체의 크가나 복잡도에 대해 대응 X
 
+![image](https://user-images.githubusercontent.com/63588046/161686874-90666971-81c4-469e-bf08-274266a58fa0.png)
 
 
 ## CornerNet
