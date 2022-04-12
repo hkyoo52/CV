@@ -35,5 +35,30 @@
   * 글자 간에 연결되어 있는지
   * 단순히 두가지 정보를 겹쳐서 영역 확보
 
+* EAST
+  * 빠르고 성능도 좋음
+  * ai로 화소단위 정보를 뽑음
+  * 글자영역 중심에 해당하는지(score map) (글자->1, 배경 ->0)
+  * 글자영역이라면 bounding box의 위치는 어디인지(geometry map) (rotated box, 직사각형 + 각도)
+
+  * 모델 구조
+   1. Feature Extractor stem (backbone) : feature 추출, VGG,ResNet 사용
+   2. Feature merging branch : Unpool로 크기 맞추고 concat (1 * 1, 3 * 3 conv로 channel수 조정)
+   3. Output : (H/4, W/4, C) map
+
+   ![image](https://user-images.githubusercontent.com/63588046/162862700-5483eb6a-b8e5-4b5c-b4f4-c87e0a7993c6.png) 
+
+  * NMS -> Locality-Aware NMS
+   * 인접한 픽셀에서 예측되는 bounding box들은 같은 text instance -> 행 우선으로 탐색하면서 하나로 통합
+   * 통합시 score map값으로 weight merge  
+
+  * Loss 값
+   * score map : cross entropy
+   * RBOX loss : IOU loss + cosing loss
+![image](https://user-images.githubusercontent.com/63588046/162863671-51eff2c7-04e9-42e1-ab1f-87eba796b753.png)
+
+![image](https://user-images.githubusercontent.com/63588046/162863764-0c77da2c-41cc-45df-96a8-df43e00b563b.png)
+
+
 #### Word Based Method
 
