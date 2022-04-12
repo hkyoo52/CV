@@ -49,5 +49,28 @@
 * 모든 데이터가 병렬로 되어있음 
   - 문장단위, 단어단위, 글자단위 다 따로 되어 있어서 바로 불러올 수 있음
 
+* ids : paragraph, image, character 레벨 각각에서 모두 id 넘버를 매김 (순서 의미X)
+* points : 각 레벨의 위치 좌표, 글자를 읽는 방향의 왼쪽 위에서부터 시계방향으로 x,y 좌표를 nested list 형태로 기록
+  * 4points의 bbox가 기본적, 2n개의 points로 이루어진 polygon도 가능
+  * [[x1,y1],[x2,y2],[x3,y3],[x4,y4]]
+* language: 사용된 언어 Ex. "en", "ko", "others",,,
+* tag : 성능에 영향을 주지만 별도로 기록하기 애매한 요소 (수직 방향이냐 수평방향이나 초점이 맞는가 등등)
+* confidence : ocr 모델이 예측한 pseudo-label의 경우 confidence score를 함께 표시
+
+
+
+# EDA 할때
+* 이미지 당 단어 개수 분포
+* image width, height 분포
+* 전체 BBOX 크기 분포
+  * 넓이 기준
+* 태그 개수(histogram)
+  * 언어
+  * orientation
+  * word tag
+  * image tag
+* Horizontal에 대한 aspect ratio(가로/세로) 
+
+
 
 
