@@ -29,6 +29,8 @@
 
 ![image](https://user-images.githubusercontent.com/63588046/165032136-d9094407-7025-4d97-938c-a6a3523e4c62.png)
 
+![image](https://user-images.githubusercontent.com/63588046/165035102-8a9b9731-f421-4f33-9776-d8eef8deed0d.png)
+
 
 #### 평가지표
 * Pixel accuracy
