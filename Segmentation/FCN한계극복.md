@@ -141,6 +141,41 @@ def forward(x):
 
 
 #### FC DenseNet
+* 정보 전달 할때 일부 layer를 건너 뛴 후의 layer에게 입력으로 제공
+![image](https://user-images.githubusercontent.com/63588046/165138449-c761dfb0-5638-44c2-832d-d8c528f38071.png)
+
+
+#### UNET
+![image](https://user-images.githubusercontent.com/63588046/165138627-a18df7f4-82cb-428d-bd42-2d5b549a83f3.png)
+
+
+# Receptive Field 확장시킨 모델
+## DeepLab v1
+* receptive가 작다면 큰 객체에대해 탐지 X
+* 아래 그림처럼 버스 유리창에 자전거가 비췄을때 자전거라고 예측할 확률 높음
+![image](https://user-images.githubusercontent.com/63588046/165139031-ca0ea105-e1d2-4e5b-8041-7c7cef58c398.png)
+
+* conv만 사용하기 보다는 중간에 max pooling을 사용하면 메모리도 아끼면서 효과적으로 receptive를 넓힐 수 있음 (파라미터 효과적으로 줄임)
+* 근데 이미지의 크기가 많이 줄어든 상태에서 upsample을 하면 정보량이 너무 많이 손실된다.
+
+
+![image](https://user-images.githubusercontent.com/63588046/165139405-b56325cf-de81-45c2-ba4e-99ff7f5f3965.png)
+
+=> 의문점 이미지의 크기는 많이 줄이지 않고 파라미터 수도 적은 상태로 receptive field만 넓게 하는 방식은 없을까?
+
+#### Dilated Convolution
+
+![image](https://user-images.githubusercontent.com/63588046/165140049-b57a3381-e311-4a20-9e61-f0c3ab1fbe08.png)
+
+![image](https://user-images.githubusercontent.com/63588046/165140210-60d81fde-28fc-4342-b21e-93d58d2927d3.png)
+
+![image](https://user-images.githubusercontent.com/63588046/165140398-6f7e0286-4e10-4a7b-8239-45dbf24aefff.png)
+
+![image](https://user-images.githubusercontent.com/63588046/165140576-8fb3d2e2-df6b-490a-b8fd-a3e8aa8c77b5.png)
+
+```pytorch
+
+```
 
 
 
