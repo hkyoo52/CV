@@ -173,10 +173,53 @@ def forward(x):
 
 ![image](https://user-images.githubusercontent.com/63588046/165140576-8fb3d2e2-df6b-490a-b8fd-a3e8aa8c77b5.png)
 
+![image](https://user-images.githubusercontent.com/63588046/165208690-97c3b566-28dd-41f5-b9f2-192901c07bf0.png)
+
+
+* conv5에서는 maxpool이랑 avgpool 같이 사용
+
+#### Dense CRF
+* CRF를 통해서 이미지 경계를 더 정밀하게 만듬
+* 유사한 색이 가까이 있으면 같은 범주로 보게 만듬
+![image](https://user-images.githubusercontent.com/63588046/165210810-ac213797-85dd-4f2e-aa4e-38fa7b6e8d88.png)
+
+
 ```pytorch
+def conv_relu(in_ch,out_ch,size=3,rate=1):
+    conv_relu=nn.Sequential(nn.Conv2d(in_channels=in_ch,out_channels=out_ch,kernel_size=3,stride=1,padding=rate,dilation=rate),
+                nn.Relu())
+    return conv_relu
+    
+    
+class VGG16(nn.Module):
+    def __init__(self):
+        super(VGG16,self).__init__()
+        self.feature1 = nn.Sequetial((conv_relu(3,64,3,1),
+                                      conv_relu(64,64,3,1),
+                                      nn.Maxpool2d(3,stride=2,padding=1))     # 2 * 2 maxpool -> 3 * 3 maxpool
+   
+
+# FC6 ~ score
+class DeepLabV1(nn.Module):
+    def __init__(self, backbone, classifier, upsampling=8):
+        super(DeepLabV1, self).__init__()
+        self.backbone = backbone
+        self.classifier = classifier
+        self.upsampling = upsampling
+
+    def forward(self, x):
+        x = self.backbone(x)
+        _, _, feature_map_h, feature_map_w = x.size()
+        x = self.classifier(x)
+        out = F.interpolate(x, size=(feature_map_h * self.upsampling, feature_map_w * self.upsampling), mode="bilinear")   # 이걸 사용해서 중간에 있는 값들을 채워줌!!!
+        return out
+# Upsampling
+from 
 
 ```
 
-
+#### DilatedNet
+* DeepLab을 더 효율적으로 사용
+![image](https://user-images.githubusercontent.com/63588046/165211122-7b344206-1ef3-49b2-ab76-95aa1e7490ef.png)
 
 
