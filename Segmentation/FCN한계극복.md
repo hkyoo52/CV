@@ -220,6 +220,7 @@ from
 
 #### DilatedNet
 * DeepLab을 더 효율적으로 사용
+* dilated와 padding을 같이 사용해서 이미지의 크기를 유지함
 ![image](https://user-images.githubusercontent.com/63588046/165211122-7b344206-1ef3-49b2-ab76-95aa1e7490ef.png)
 
 
