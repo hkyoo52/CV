@@ -46,5 +46,54 @@
 
 
 ## DeepLab v3
+* global average pooling 사용
+* sum 하기 보다는 concat 사용
+
+![image](https://user-images.githubusercontent.com/63588046/165429067-164cf06b-581e-4368-9df1-4d5f0952efff.png)
+
+
+## DeepLab v3+
+* Encoder Decoder 사용 -> spatial dimension의 축소로 인해 손실된 정보를 Decoder에서 점진적 복원
+* skip connectoin을 이용
+
+#### Encoder
+* 수정된 Xception을 backbone으로 사용
+* low level feature를 다양한 conv 사용한 후 concat함
+* 그것을 1 * 1 conv 사용해서 1개 채널로 만들어서 decoder에 제공
+
+![image](https://user-images.githubusercontent.com/63588046/165430617-b8cdc48a-e6bc-48c8-82e3-caae83eff78c.png)
+
+#### Decoder
+* low level feature와 Encoder output을 크기와 차원을 맞추서 concat
+* conv, upsampling을 해서 예측
+![image](https://user-images.githubusercontent.com/63588046/165430776-18288b64-2efa-4765-a58a-aaebc03a093b.png)
+
+#### Depthwise Separable Convolution
+* Depthwise Convolution : 각 채널마다 다른 filter를 사용하여 convolution 연산 후 결합
+![image](https://user-images.githubusercontent.com/63588046/165431334-a198dea2-1776-47ca-8b64-601419eee2f5.png)
+
+* Pointwise Convolution : 1 * 1 conv
+* Depthwise Separable Convolution = Depthwise Convolution + Pointwise Convolution
+![image](https://user-images.githubusercontent.com/63588046/165431582-d2940018-c5f7-436b-8df6-94835d72fb6a.png)
+
+#### 다른 변경점
+* MaxPoolint -> Depthwise Separble Convolution + BatchNorm + Relu
+* 크기를 줄이면서 어느 부분이 중요한지, 어떻게 추출해야 정보 손실이 적은지 구함
+
+![image](https://user-images.githubusercontent.com/63588046/165431894-6a7eb4a5-cd3a-480f-ab40-92dfe32278bb.png)
+
+![image](https://user-images.githubusercontent.com/63588046/165431974-c2bb5be1-945f-4f18-8518-787c437d4a38.png)
+
+* 동일한 층 반복 횟수를 8 -> 16
+* 더 깊게 학습을 진행
+
+![image](https://user-images.githubusercontent.com/63588046/165432116-ed2a2a2f-7b4f-4051-971a-59be0f58e911.png)
+
+![image](https://user-images.githubusercontent.com/63588046/165432173-38941524-7ae0-493f-b0a8-7cd757848d4e.png)
+
+
+
+
+
 
 
