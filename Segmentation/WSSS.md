@@ -54,10 +54,58 @@
 
 2번 방식 : Transfer Learning 이용
 * Object-ness(saliency)를 학습한 모델 준비 (object를 바라볼때 어디를 처음 보는지) 
+* 기존 방식과 Saliency를 합쳐서 더 sharp한 결과를 가짐
+
+![image](https://user-images.githubusercontent.com/63588046/166435263-9a6d27ea-bf09-47f0-82fd-3e905b363026.png)
+
+3번 방식 Self-supervised Learning
+* 입력 이미지가 작아질수록 CAM이 동그란 이미지가 됨
+* CAM 한 후 downsampling 한 결과와 downsampling한 후 CAM 한 결과 같도록 L1 loss 사용
+
+![image](https://user-images.githubusercontent.com/63588046/166435447-2fb9c128-645f-41aa-a0e8-6703122b735a.png)
+
+![image](https://user-images.githubusercontent.com/63588046/166435594-e5c24654-be08-4c49-9430-3585fc0f15e7.png)
 
 
 ## CAM 영역을 확장하기 위한 접근
+* 동물 사진을 예시로 들면 CAM은 동물에 얼굴에만 집중하게 만듬
+
+![image](https://user-images.githubusercontent.com/63588046/166435906-2987c914-0401-4345-9742-c82840fc67f3.png)
+
+* 해결법 : CAM을 구한 후 CAM에서 가장 중요한 부분을 이미지에서 삭제하고 다시 CAM 추출
+* 위 과정을 반복한다
+
+![image](https://user-images.githubusercontent.com/63588046/166436048-d326a62b-1643-439d-a912-a1599bf4a238.png)
+
+#### 위 과정 문제점
+* Output 별로 다른 모델을 학습해야 하는 번거러움
+* Class 별로 필요한 step이 다름...(Over Erasing : 과도한 step인 경우 물체가 아닌 영역까지 mask가 생기는 현상)
 
 
+#### 해결법2
+* random하게 이미지를 지우고 학습
+ 
+![image](https://user-images.githubusercontent.com/63588046/166436420-95bbdd97-9756-4d18-aae1-54fb57454310.png)
+
+![image](https://user-images.githubusercontent.com/63588046/166436465-af168af5-76f1-4a6e-af3b-4381b7a3e45c.png)
+
+#### 해결법3
+* Heatmap 얻음
+* Thresholding을 통해 지울 영역 구함
+* Erasing이 된 feature에서 다시 Heatmap얻음
+* Heatmap을 더해서 통합
+
+![image](https://user-images.githubusercontent.com/63588046/166436687-136a064e-5e0d-4f2d-a089-a63607f13ef4.png)
+
+#### 해결법4
+* 다양한 receptive field 사용
+
+![image](https://user-images.githubusercontent.com/63588046/166436779-7b7179c5-4004-4025-9dec-19c42a478af4.png)
+
+#### 해결법5
+* MIXUP
 
 # WSSS History
+
+![image](https://user-images.githubusercontent.com/63588046/166436891-182d5e5f-ae26-4d6f-8121-5d4e0ab8aaf7.png)
+
