@@ -11,4 +11,16 @@
 
 
 
-# mmseg
+# mmsegmentation
+
+## train.py
+* 주어진 파일을 가지고 config object 생성
+* 생성한 config 가지고 모델 생성
+* 생성한 config 가지고 dataset 생성
+* 학습
+
+## config
+* model, dataset, 학습 방법 등 모든 정보 가지고 있음
+* openMMLab의 모든 프로젝트에서 공통적으로 사용되기 때문에 mmcv 안에 위치
+* fromfile 메서드를 통해서 .py 파일로 정의한 config들을 가져온다.
+* 이후 터미널에서 --cfg-options를 통해서 정의한 config를 덮어 씌운다.
