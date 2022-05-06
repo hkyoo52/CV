@@ -38,5 +38,25 @@ git cmd 용어 : https://seomal.com/map/1/30
   * A : branch가 움직임
   * D : head가 움직임 (=checkout)
   
+#### 시간여행
+* checkout으로 과거를 간다.
+* 과거에서 다 살피거나 작업을 한다.
+* checkout을 master로 간다.
 
 
+
+* git branch exp : exp라는 새로운 branch 생성
+* git check out master
+* git add master.txt
+* git commit -m 'master 1'
+
+=> exp1과 master1 2개의 branch 존재, master는 master1이라는 곳에 있음
+
+* git reset -hard exp : exp로 마스터를 보냄
+
+![image](https://user-images.githubusercontent.com/63588046/167067145-f3668b2d-3f38-4190-af9f-36899f835d2e.png)
+
+
+
+## 원경 저장소 올리는법
+* git push --set-upstream origin master : origin이라는 원격저장소를 올림
